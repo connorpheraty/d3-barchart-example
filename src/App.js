@@ -64,7 +64,6 @@ function App() {
         .tickFormat(xAxisTickFormat)
         .tickSize(-innerHeight);
 
-
       const xAxisG = g
         .append("g")
         .call(xAxis)

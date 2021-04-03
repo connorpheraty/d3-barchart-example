@@ -21,19 +21,9 @@
   vertical-align: top;
   overflow: hidden;
 }
-.svg-content-responsive {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 0;
+.rect {
+  fill: #1d4a5d;
 }
-
-.axis-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  color: black;
-}
-
 .tooltip {
   position: absolute;
   z-index: 10;
@@ -49,18 +39,17 @@
   padding: 1rem;
   font-size: 15px;
 }
-
 .chart-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   text-align: center;
 }
-
+.axis-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: black;
+}
 .y-axis-ticks {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
-}
-
-.rect {
-  fill: #1d4a5d;
 }
