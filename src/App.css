@@ -1,0 +1,67 @@
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  text-align: center;
+  width: 95%;
+  height: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 1% auto 1% auto;
+  background-color: #F9F6F0;
+  border-radius: 20px;
+}
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.svg-chart {
+  border-style: solid;
+  border-color: black
+}
+
+.axis-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: black;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  display: inline-block;
+  background-color: black;
+  padding: 10px;
+  border-width: 2px;
+  border-color: white;
+  border-radius: 5px;
+  fill-opacity: 100;
+  font-family: 'Robot Mono', sans-serif;
+  color: whitesmoke;
+  padding: 1rem;
+  font-size: 15px;
+}
+
+.chart-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.y-axis-ticks {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+}
