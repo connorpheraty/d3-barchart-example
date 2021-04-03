@@ -1,39 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as d3 from "d3";
-import './App.css';
-
-const row = d => {
-  d.gdp = +d.gdp;
-  return d;
-}
+import "./App.css";
 
 function App() {
-  const [data, setData] = useState();
+  // const [data, setData] = useState([]);
 
   useEffect(() => {
-    d3.csv("https://raw.githubusercontent.com/connorpheraty/d3-barchart-example/main/data/top_20_countries_gdp.csv", function(data){
-      setData(data)
+    d3.csv(
+      "https://raw.githubusercontent.com/connorpheraty/d3-barchart-example/main/src/data.csv"
+    ).then(function (data) {
+      data.forEach(function (d) {
+        d.gdp = +d.gdp;
+      });
+      drawChart(data);
+    });
   });
-    drawChart();
-  }, []);
 
-  const drawChart = () => {
+  const drawChart = (data) => {
     const svg = d3.select("#chartId");
 
-    const width = +svg.attr("width")
-    const height = +svg.attr("height")
+    const width = +svg.attr("width");
+    const height = +svg.attr("height");
 
     const margin = { top: 50, right: 40, bottom: 75, left: 100 };
 
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const chartTitle = "Countries ranked by GDP"
+    const chartTitle = "Countries ranked by GDP";
     const barChartXAxisLabel = "GDP";
 
     const renderBarChart = (data) => {
-
-      const xValue = (d) => +d.gdp
+      const xValue = (d) => +d.gdp;
 
       const xScale = d3
         .scaleLinear()
@@ -42,26 +40,24 @@ function App() {
 
       const yScale = d3
         .scaleBand()
-        .domain(data.map(function(d) {return d.country}))
+        .domain(
+          data.map(function (d) {
+            return d.country;
+          })
+        )
         .range([0, innerHeight])
         .padding(0.1);
 
-      const tooltip = d3
-        .select("body")
-        .append("div")
-        .attr("class", "tooltip")
+      const tooltip = d3.select("body").append("div").attr("class", "tooltip");
 
       const g = svg
         .append("g")
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${margin.top})`
-        )
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
         .attr("class", "axis");
 
       g.append("text")
-        .attr("x", (innerWidth / 2) - 125)             
-        .attr("y", 0 - (margin.top / 2))
+        .attr("x", innerWidth / 2 - 125)
+        .attr("y", 0 - margin.top / 2)
         .attr("class", "chart-title")
         .text(chartTitle);
 
@@ -88,17 +84,12 @@ function App() {
         .attr("fill", "black")
         .text(barChartXAxisLabel);
 
-      const yAxis = d3
-        .axisLeft(yScale)
+      const yAxis = d3.axisLeft(yScale);
 
-      const yAxisG = g
-        .append("g")
-        .call(yAxis)
-        
-      yAxisG
-        .selectAll(".tick text")
-        .attr("class","y-axis-ticks")
-      
+      const yAxisG = g.append("g").call(yAxis);
+
+      yAxisG.selectAll(".tick text").attr("class", "y-axis-ticks");
+
       yAxisG.select(".domain").remove();
 
       g.selectAll("rect")
@@ -106,8 +97,12 @@ function App() {
         .enter()
         .append("rect")
         .attr("class", "rect")
-        .attr("y", function(d) {return yScale(d.country) + 8} )
-        .attr("width", function(d) {return xScale(d.gdp)})
+        .attr("y", function (d) {
+          return yScale(d.country) + 8;
+        })
+        .attr("width", function (d) {
+          return xScale(d.gdp);
+        })
         .attr("height", yScale.bandwidth() / 2)
         .on("mouseenter", function (event, d) {
           d3.select(this).attr("opacity", 0.5);
@@ -122,40 +117,14 @@ function App() {
           return tooltip
             .style("top", event.pageY + 30 + "px")
             .style("left", event.pageX + 20 + "px")
-            .html(
-              "GDP: $" +
-              d3.format(".3s")(d.gdp).replace("G", "B")
-            );
+            .html("GDP: $" + d3.format(".3s")(d.gdp).replace("G", "B"));
         })
         .on("mouseout", function () {
           return tooltip.style("visibility", "hidden");
         });
-      };
-      // var data = [
-      //   {country: "United States", gdp: 21433226000000},
-      //   {country: "European Union", gdp: 15626448476438},
-      //   {country: "China",gdp: 14279937467431},
-      //   {country: "Japan",gdp: 5081769542379},
-      //   {country: "Germany",gdp: 3861123558039},
-      //   {country: "India",gdp: 2868929415617},
-      //   {country: "United Kingdom",gdp: 2829108219165},
-      //   {country: "France",gdp: 2715518274227},
-      //   {country: "Italy",gdp: 2003576145498},
-      //   {country: "Brazil",gdp: 1839758040765},
-      //   {country: "Canada",gdp: 1736425629519},
-      //   {country: "Russia",gdp: 1699876578871},
-      //   {country: "Korea",gdp: 1646739219509},
-      //   {country: "Australia",gdp: 1396567014733},
-      //   {country: "Spain",gdp: 1393490524517},
-      //   {country: "Mexico",gdp: 1268870527160},
-      //   {country: "Indonesia",gdp: 1119190780752},
-      //   {country: "Netherlands",gdp: 907050863145},
-      //   {country: "Saudi Arabia:",gdp: 792966838161},
-      //   {country: "Turkey",gdp: 761425499358}
-      // ]
-      renderBarChart(data)
-  }
-
+    };
+    renderBarChart(data);
+  };
 
   return (
     <div className="App">
@@ -167,4 +136,3 @@ function App() {
 }
 
 export default App;
-
