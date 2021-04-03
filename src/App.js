@@ -1,12 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import './App.css';
 
+const row = d => {
+  d.gdp = +d.gdp;
+  return d;
+}
+
 function App() {
+  const [data, setData] = useState();
 
   useEffect(() => {
-    drawChart();
+    d3.csv("https://raw.githubusercontent.com/connorpheraty/d3-barchart-example/main/data/top_20_countries_gdp.csv", function(data){
+      setData(data)
   });
+    drawChart();
+  }, []);
 
   const drawChart = () => {
     const svg = d3.select("#chartId");
@@ -122,28 +131,28 @@ function App() {
           return tooltip.style("visibility", "hidden");
         });
       };
-      var data = [
-        {country: "United States", gdp: 21433226000000},
-        {country: "European Union", gdp: 15626448476438},
-        {country: "China",gdp: 14279937467431},
-        {country: "Japan",gdp: 5081769542379},
-        {country: "Germany",gdp: 3861123558039},
-        {country: "India",gdp: 2868929415617},
-        {country: "United Kingdom",gdp: 2829108219165},
-        {country: "France",gdp: 2715518274227},
-        {country: "Italy",gdp: 2003576145498},
-        {country: "Brazil",gdp: 1839758040765},
-        {country: "Canada",gdp: 1736425629519},
-        {country: "Russia",gdp: 1699876578871},
-        {country: "Korea",gdp: 1646739219509},
-        {country: "Australia",gdp: 1396567014733},
-        {country: "Spain",gdp: 1393490524517},
-        {country: "Mexico",gdp: 1268870527160},
-        {country: "Indonesia",gdp: 1119190780752},
-        {country: "Netherlands",gdp: 907050863145},
-        {country: "Saudi Arabia:",gdp: 792966838161},
-        {country: "Turkey",gdp: 761425499358}
-      ]
+      // var data = [
+      //   {country: "United States", gdp: 21433226000000},
+      //   {country: "European Union", gdp: 15626448476438},
+      //   {country: "China",gdp: 14279937467431},
+      //   {country: "Japan",gdp: 5081769542379},
+      //   {country: "Germany",gdp: 3861123558039},
+      //   {country: "India",gdp: 2868929415617},
+      //   {country: "United Kingdom",gdp: 2829108219165},
+      //   {country: "France",gdp: 2715518274227},
+      //   {country: "Italy",gdp: 2003576145498},
+      //   {country: "Brazil",gdp: 1839758040765},
+      //   {country: "Canada",gdp: 1736425629519},
+      //   {country: "Russia",gdp: 1699876578871},
+      //   {country: "Korea",gdp: 1646739219509},
+      //   {country: "Australia",gdp: 1396567014733},
+      //   {country: "Spain",gdp: 1393490524517},
+      //   {country: "Mexico",gdp: 1268870527160},
+      //   {country: "Indonesia",gdp: 1119190780752},
+      //   {country: "Netherlands",gdp: 907050863145},
+      //   {country: "Saudi Arabia:",gdp: 792966838161},
+      //   {country: "Turkey",gdp: 761425499358}
+      // ]
       renderBarChart(data)
   }
 
