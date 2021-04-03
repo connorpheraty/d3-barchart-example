@@ -1,30 +1,34 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3";
 import './App.css';
-import top20GDP from "./data/top_20_countries_gdp.csv"
 
 function App() {
-  console.log(top20GDP)
 
   useEffect(() => {
     drawChart();
   });
 
   const drawChart = () => {
-    const svg = d3.select("#barChart")
+    const svg = d3.select("#chartId");
 
     const width = +svg.attr("width")
     const height = +svg.attr("height")
-    const margin = { top: 40, right: 40, bottom: 165, left: 45 };
+
+    const margin = { top: 50, right: 40, bottom: 75, left: 100 };
+
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    const chartTitle = "Countries ranked by GDP"
+    const barChartXAxisLabel = "GDP";
+
     const renderBarChart = (data) => {
-      console.log(data)
+
+      const xValue = (d) => +d.gdp
 
       const xScale = d3
         .scaleLinear()
-        .domain([0, 21433226000000])
+        .domain([0, d3.max(data, xValue)])
         .range([0, innerWidth]);
 
       const yScale = d3
@@ -36,14 +40,7 @@ function App() {
       const tooltip = d3
         .select("body")
         .append("div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .style("display", "inline-block")
-        .style("background-color", "#FFFFFF")
-        .style("padding", "10px")
-        .style("border", "1px #000000 solid")
-        .style("border-radius", "5px")
-        .attr("fill-opacity", 100);
+        .attr("class", "tooltip")
 
       const g = svg
         .append("g")
@@ -52,6 +49,12 @@ function App() {
           `translate(${margin.left}, ${margin.top})`
         )
         .attr("class", "axis");
+
+      g.append("text")
+        .attr("x", (innerWidth / 2) - 125)             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("class", "chart-title")
+        .text(chartTitle);
 
       const xAxisTickFormat = (number) =>
         d3.format(".3s")(number).replace("G", "B");
@@ -63,8 +66,6 @@ function App() {
 
       g.append("g")
         .call(d3.axisLeft(yScale))
-        .selectAll(".domain, .tick line")
-        .remove();
 
       const xAxisG = g
         .append("g")
@@ -77,9 +78,20 @@ function App() {
         .append("text")
         .attr("class", "axis-label")
         .attr("y", 50)
-        .attr("x", innerHeight / 2)
+        .attr("x", innerWidth / 2)
         .attr("fill", "black")
-        .style("font-size", "18px")
+        .text(barChartXAxisLabel);
+
+      const yAxis = d3
+        .axisLeft(yScale)
+
+      const yAxisG = g
+        .append("g")
+        .call(yAxis)
+        
+      yAxisG
+        .selectAll(".tick text")
+        .attr("class","y-axis-ticks")
 
       g.selectAll("rect")
         .data(data)
@@ -102,26 +114,45 @@ function App() {
             .style("top", event.pageY + 30 + "px")
             .style("left", event.pageX + 20 + "px")
             .html(
-              d.country +
-                "<br> $" +
-              d.gdp
+              "GDP: $" +
+              d3.format(".3s")(d.gdp).replace("G", "B")
             );
         })
         .on("mouseout", function () {
           return tooltip.style("visibility", "hidden");
         });
       };
-    d3.csv(top20GDP, function(data) {
-      console.log(top20GDP)
+      var data = [
+        {country: "United States", gdp: 21433226000000},
+        {country: "European Union", gdp: 15626448476438},
+        {country: "China",gdp: 14279937467431},
+        {country: "Japan",gdp: 5081769542379},
+        {country: "Germany",gdp: 3861123558039},
+        {country: "India",gdp: 2868929415617},
+        {country: "United Kingdom",gdp: 2829108219165},
+        {country: "France",gdp: 2715518274227},
+        {country: "Italy",gdp: 2003576145498},
+        {country: "Brazil",gdp: 1839758040765},
+        {country: "Canada",gdp: 1736425629519},
+        {country: "Russia",gdp: 1699876578871},
+        {country: "Korea",gdp: 1646739219509},
+        {country: "Australia",gdp: 1396567014733},
+        {country: "Spain",gdp: 1393490524517},
+        {country: "Mexico",gdp: 1268870527160},
+        {country: "Indonesia",gdp: 1119190780752},
+        {country: "Netherlands",gdp: 907050863145},
+        {country: "Saudi Arabia:",gdp: 792966838161},
+        {country: "Turkey",gdp: 761425499358}
+      ]
       renderBarChart(data)
-    })
   }
 
 
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <svg id="barChart" width="1290" height="850"></svg>
+      <div className="container">
+        <svg id="chartId" height="750" width="1200" className="svg-chart"></svg>
+      </div>
     </div>
   );
 }
