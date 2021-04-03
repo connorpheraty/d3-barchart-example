@@ -28,11 +28,6 @@
   left: 0;
 }
 
-.svg-chart {
-  border-style: solid;
-  border-color: black
-}
-
 .axis-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
@@ -64,4 +59,8 @@
 .y-axis-ticks {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
+}
+
+.rect {
+  fill: #1d4a5d;
 }

@@ -64,8 +64,6 @@ function App() {
         .tickFormat(xAxisTickFormat)
         .tickSize(-innerHeight);
 
-      g.append("g")
-        .call(d3.axisLeft(yScale))
 
       const xAxisG = g
         .append("g")
@@ -92,12 +90,15 @@ function App() {
       yAxisG
         .selectAll(".tick text")
         .attr("class","y-axis-ticks")
+      
+      yAxisG.select(".domain").remove();
 
       g.selectAll("rect")
         .data(data)
         .enter()
         .append("rect")
-        .attr("y", function(d) {return yScale(d.country)})
+        .attr("class", "rect")
+        .attr("y", function(d) {return yScale(d.country) + 8} )
         .attr("width", function(d) {return xScale(d.gdp)})
         .attr("height", yScale.bandwidth() / 2)
         .on("mouseenter", function (event, d) {
