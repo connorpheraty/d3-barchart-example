@@ -15,6 +15,7 @@ function App() {
   });
 
   const drawChart = (data) => {
+    console.log(data);
     const svg = d3.select("#chartId");
 
     const width = +svg.attr("width");
@@ -45,7 +46,11 @@ function App() {
       .range([0, innerHeight])
       .padding(0.1);
 
-    const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+    const tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("visibility", "hidden");
 
     const g = svg
       .append("g")
@@ -95,7 +100,7 @@ function App() {
       .append("rect")
       .attr("class", "rect")
       .attr("y", function (d) {
-        return yScale(d.country) + 8;
+        return yScale(d.country) + 5;
       })
       .attr("width", function (d) {
         return xScale(d.gdp);
