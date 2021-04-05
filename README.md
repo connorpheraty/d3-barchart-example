@@ -1,1 +1,0 @@
-# Interactive Barchart with D3.js
