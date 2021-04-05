@@ -26,6 +26,7 @@
 .rect {
   fill: #1d4a5d;
 }
+
 .tooltip {
   position: absolute;
   z-index: 10;
@@ -40,7 +41,10 @@
   color: whitesmoke;
   padding: 1rem;
   font-size: 15px;
+  z-index: 100;
+  visibility: hidden;
 }
+
 .chart-title {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;

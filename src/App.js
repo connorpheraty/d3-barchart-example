@@ -45,11 +45,7 @@ function App() {
       .range([0, innerHeight])
       .padding(0.1);
 
-    const tooltip = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("visibility", "hidden");
+    const tooltip = d3.select("body").append("div").attr("class", "tooltip");
 
     const g = svg
       .append("g")
@@ -111,6 +107,7 @@ function App() {
       .on("mouseleave", function (event, d) {
         d3.select(this).attr("opacity", 1);
       })
+      // Make div appear
       .on("mouseover", function () {
         return tooltip.style("visibility", "visible");
       })
@@ -120,6 +117,7 @@ function App() {
           .style("left", event.pageX + 20 + "px")
           .html("GDP: $" + d3.format(".3s")(d.gdp).replace("G", "B"));
       })
+      // Make div disappear
       .on("mouseout", function () {
         return tooltip.style("visibility", "hidden");
       });
