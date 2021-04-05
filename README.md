@@ -1,6 +1,6 @@
 # D3 Multiple Bar Chart with Tooltips in React
 
-In this article we are going to build an interactive barchart with D3.js and React. D3 is an open source, lightweight javascript graphing framework for producing interactive and dynamic data visualization in the web browser. For those uninitiated with D3 and why it may make sense to learn, I advise taking a look at the documentation and tutorial at Observable. (https://observablehq.com/@d3/learn-d3?collection=@d3/learn-d3)
+D3 is an open source, lightweight javascript graphing framework for producing interactive and dynamic data visualization in the web browser. For those uninitiated with D3 and why it may make sense to learn, I advise taking a look at the documentation and tutorial at Observable. (https://observablehq.com/@d3/learn-d3?collection=@d3/learn-d3)
 
 The code for this tutorial can be downloaded here https://github.com/connorpheraty/d3-barchart-example
 
