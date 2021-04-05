@@ -2,8 +2,6 @@
 
 D3 is an open source, lightweight javascript graphing framework for producing interactive and dynamic data visualization in the web browser. For those uninitiated with D3 and why it may make sense to learn, I advise taking a look at the documentation and tutorial at Observable. (https://observablehq.com/@d3/learn-d3?collection=@d3/learn-d3)
 
-The code for this tutorial can be downloaded here https://github.com/connorpheraty/d3-barchart-example
-
 I am going to assume you are already familiar with the basic concepts of D3 such as selections scales, and data joins. If not don't worry, the best way to learn is to tinker with the code and see what happens.
 
 ## CSV Parsing with React Hooks
