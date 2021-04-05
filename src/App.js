@@ -15,7 +15,6 @@ function App() {
   });
 
   const drawChart = (data) => {
-    console.log(data);
     const svg = d3.select("#chartId");
 
     const width = +svg.attr("width");
